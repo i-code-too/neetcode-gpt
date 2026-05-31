@@ -45,6 +45,7 @@ class Solution:
                 weight = torch.randn(fan_out, fan_in)
             weights.append(weight)
 
+        # important tweak: build/define all layers' weights first and then feed data through them (to match platform solution)
         x = torch.randn(1, input_dim)
 
         for w in weights: 
