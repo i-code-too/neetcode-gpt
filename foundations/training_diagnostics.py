@@ -30,10 +30,10 @@ class Solution:
         loss.backward() # computing gradients
         for layer in model.children():
             if isinstance(layer, nn.Linear):
-                grad = layer.weight.grad # storing gradient (dL/dw)
-                mean = grad.mean().item() # mean of gradient, not layer output
+                grad = layer.weight.grad # storing gradient of weights (dL/dw)
+                mean = grad.mean().item() # mean of gradients, not of outputs
                 std = grad.std().item()
-                norm = torch.norm(grad).item()
+                norm = torch.norm(grad).item() # L2 norm of gradients
                 gradient_stats.append({"mean": round(mean, 4), "std": round(std, 4), "norm": round(norm, 4)})
         return gradient_stats
 
