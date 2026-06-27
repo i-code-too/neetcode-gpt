@@ -16,7 +16,10 @@ class Solution:
         # Use torch.manual_seed(0) before generating random start indices
         # Use torch.randint to pick random starting positions
         torch.manual_seed(0)
+        X = []
+        Y = []
         starts = torch.randint(0, len(data) - context_length, (batch_size, ))
-        X = torch.stack([data[i : i + context_length] for i in starts])
-        Y = torch.stack([data[i + 1 : i + 1 + context_length] for i in starts])
-        return X, Y
+        for i in starts:
+            X.append(data[i : i + context_length])
+            Y.append(data[i + 1 : i + 1 + context_length])
+        return (torch.stack(X), torch.stack(Y))
