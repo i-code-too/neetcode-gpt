@@ -21,7 +21,7 @@ class Solution:
             B, T, C = logits.shape
             logits_flat = logits.view(B * T, C) # flatten to 2D logits
             targets_flat = Y.view(B * T) # flatten to 1D targets
-            loss = torch.nn.functional.cross_entropy(logits_flat, targets_flat)
+            loss = nn.functional.cross_entropy(logits_flat, targets_flat)
             optimizer.zero_grad() # zero out gradient before backward
             loss.backward() # backpropagation to find gradients
             optimizer.step() # update weight w.r.t. gradients
