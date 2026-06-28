@@ -20,6 +20,6 @@ class Solution:
             probs = nn.functional.softmax(logits[:, -1, :], dim=-1) # extract last position
             next_token = torch.multinomial(probs, 1, generator=generator) # sample next token
             generator.set_state(initial_state)
-            context = torch.cat((context, next_token), dim=-1) # append
-            result.append(int_to_char[next_token.item()]) # decode token ID to character
+            context = torch.cat((context, next_token), dim=-1) # append token to context for next input
+            result.append(int_to_char[next_token.item()]) # decode token ID to character and append
         return ''.join(result)
